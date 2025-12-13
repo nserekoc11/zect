@@ -1,4 +1,7 @@
-# zect
-portfolio
+# pyderiv
 
-### Support or contact
+A simple async Python wrapper for the Deriv WebSocket API.
+
+## Installation
+```bash
+pip install pyderiv
