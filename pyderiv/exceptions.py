@@ -7,5 +7,8 @@ class AuthorizationError(DerivError):
     pass
 
 
-class ConnectionError(DerivError):
+class DerivConnectionError(DerivError):
     pass
+
+# Backwards compatible alias, avoid shadowing builtin ConnectionError
+ConnectionError = DerivConnectionError

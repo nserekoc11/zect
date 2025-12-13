@@ -17,6 +17,9 @@ class DerivClient:
         try:
             self.ws = await websockets.connect(DERIV_WS_URL)
             await self._authorize()
+        except AuthorizationError:
+            # preserve authorization errors explicitly
+            raise
         except Exception as e:
             raise ConnectionError(str(e))
 
@@ -61,4 +64,29 @@ class DerivClient:
         if self.ws:
             await self.ws.close()
             self.ws = None
- 
+    async def subscribe_contract(self, contract_id: int):
+        """
+        Subscribe to live updates of an open contract.
+        Yields updates until the contract is closed.
+        """
+        await self.send({
+            "proposal_open_contract": 1,
+            "contract_id": contract_id,
+            "subscribe": 1
+        })
+
+        while True:
+            response = await self.receive()
+
+            if "error" in response:
+                break
+
+            poc = response.get("proposal_open_contract")
+            if not poc:
+                continue
+
+            yield poc
+
+            # stop automatically when contract is settled
+            if poc.get("is_sold"):
+                break

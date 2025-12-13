@@ -1,0 +1,10 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyderiv"
+version = "0.1.0"
+description = "A simple async Python wrapper for the Deriv WebSocket API."
+authors = [ { name = "nserekoc11" } ]
+dependencies = ["websockets>=10.0"]
