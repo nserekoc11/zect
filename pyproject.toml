@@ -11,7 +11,7 @@ dependencies = ["websockets>=10.0"]
 
 [database]
 enabled = true
-porta = [ 8001, 8001, 8002 ]
+ports = [ 8001, 8001, 8002 ]
 data = "[\"<》》\"]" # Escaped quotes
 
 [servers]
